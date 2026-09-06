@@ -1,21 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@800;900&family=Space+Grotesk:wght@700;800&family=Syne:wght@800&family=Montserrat:wght@800;900&family=Saira+Stencil+One&family=Allerta+Stencil&display=swap');
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
+.font-stencil {
+  font-family: 'Saira Stencil One', 'Allerta Stencil', cursive, sans-serif;
+}
+.font-number-outfit {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+}
+.font-number-syne {
+  font-family: 'Syne', sans-serif;
+}
+.font-number-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+
 /*
- * Design system definition.
+ * Vishvas Solar Design System Definition
  *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Theme palette derived from official logo colors:
+ * - Navy Blue  : #0B2D5C
+ * - Green      : #2E8B27
+ * - Cream      : #F8F7F0
+ * - White      : #FFFFFF
+ * - Gold       : #F2B705
  */
 
 @theme inline {
@@ -28,6 +40,28 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  /* Logo Palette Utility Color Mappings */
+  --color-navy: #0B2D5C;
+  --color-navy-dark: #061D3D;
+  --color-navy-light: #14427E;
+
+  --color-green: #2E8B27;
+  --color-green-dark: #226D1F;
+  --color-green-light: #38A731;
+  --color-green-soft: #EAF4E9;
+
+  --color-cream: #FAF9F6;
+  --color-cream-dark: #F3F1EA;
+
+  --color-white: #FFFFFF;
+
+  --color-gold: #F2B705;
+  --color-gold-dark: #D9A300;
+  --color-gold-light: #FCD857;
+  --color-gold-soft: #FEF8E6;
+
+  /* Theme System Mappings */
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
@@ -71,79 +105,117 @@
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.975 0.005 265);
-  --foreground: oklch(0.22 0.03 265);
-  --surface: oklch(1 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.03 265);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.03 265);
-  --primary: oklch(0.62 0.18 254);
-  --primary-foreground: oklch(0.99 0.005 250);
-  --brand: oklch(0.62 0.18 254);
-  --brand-foreground: oklch(0.99 0.005 250);
-  --brand-soft: oklch(0.93 0.04 254);
-  --brand-deep: oklch(0.46 0.15 258);
-  --secondary: oklch(0.955 0.012 253);
-  --secondary-foreground: oklch(0.3 0.05 258);
-  --muted: oklch(0.96 0.008 253);
-  --muted-foreground: oklch(0.55 0.03 258);
-  --accent: oklch(0.93 0.04 254);
-  --accent-foreground: oklch(0.35 0.1 258);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.915 0.012 255);
-  --input: oklch(0.915 0.012 255);
-  --ring: oklch(0.62 0.18 254);
 
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  /* Palette Variables */
+  --navy: #0B2D5C;
+  --navy-dark: #061D3D;
+  --navy-light: #14427E;
+
+  --green: #2E8B27;
+  --green-dark: #226D1F;
+  --green-light: #38A731;
+  --green-soft: #EAF4E9;
+
+  --cream: #FAF9F6;
+  --cream-dark: #F3F1EA;
+
+  --white: #FFFFFF;
+
+  --gold: #F2B705;
+  --gold-dark: #D9A300;
+  --gold-light: #FCD857;
+  --gold-soft: #FEF8E6;
+
+  /* Semantic Variables */
+  --background: #FAF9F6;
+  --foreground: #0B2D5C;
+  --surface: #FFFFFF;
+  --card: #FFFFFF;
+  --card-foreground: #0B2D5C;
+  --popover: #FFFFFF;
+  --popover-foreground: #0B2D5C;
+
+  --primary: #2E8B27;
+  --primary-foreground: #FFFFFF;
+
+  --brand: #2E8B27;
+  --brand-foreground: #FFFFFF;
+  --brand-soft: #EAF4E9;
+  --brand-deep: #0B2D5C;
+
+  --secondary: #F3F1EA;
+  --secondary-foreground: #0B2D5C;
+
+  --muted: #F3F1EA;
+  --muted-foreground: #4A5A6E;
+
+  --accent: #F2B705;
+  --accent-foreground: #0B2D5C;
+
+  --destructive: #D93838;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #E2DFD2;
+  --input: #E2DFD2;
+  --ring: #2E8B27;
+
+  --chart-1: #2E8B27;
+  --chart-2: #0B2D5C;
+  --chart-3: #F2B705;
+  --chart-4: #14427E;
+  --chart-5: #38A731;
+
+  --sidebar: #0B2D5C;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #2E8B27;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #14427E;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #14427E;
+  --sidebar-ring: #F2B705;
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: #061D3D;
+  --foreground: #F8F7F0;
+  --surface: #0B2D5C;
+  --card: #0B2D5C;
+  --card-foreground: #F8F7F0;
+  --popover: #0B2D5C;
+  --popover-foreground: #F8F7F0;
+
+  --primary: #2E8B27;
+  --primary-foreground: #FFFFFF;
+
+  --brand: #2E8B27;
+  --brand-foreground: #FFFFFF;
+  --brand-soft: #0E3B1C;
+  --brand-deep: #061D3D;
+
+  --secondary: #14427E;
+  --secondary-foreground: #F8F7F0;
+
+  --muted: #14427E;
+  --muted-foreground: #94A3B8;
+
+  --accent: #F2B705;
+  --accent-foreground: #0B2D5C;
+
+  --destructive: #E54848;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #14427E;
+  --input: #14427E;
+  --ring: #F2B705;
+
+  --sidebar: #061D3D;
+  --sidebar-foreground: #F8F7F0;
+  --sidebar-primary: #2E8B27;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #14427E;
+  --sidebar-accent-foreground: #F8F7F0;
+  --sidebar-border: #14427E;
+  --sidebar-ring: #F2B705;
 }
 
 @layer base {
@@ -156,3 +228,135 @@
     color: var(--color-foreground);
   }
 }
+
+@keyframes whatsapp-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes whatsapp-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+.animate-whatsapp-float {
+  animation: whatsapp-bounce 3.5s ease-in-out infinite;
+}
+
+.animate-whatsapp-pulse {
+  animation: whatsapp-pulse 2.5s infinite;
+}
+
+@keyframes phone-ring {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  10%, 30%, 50%, 70%, 90% { transform: rotate(-14deg) scale(1.15); }
+  20%, 40%, 60%, 80% { transform: rotate(14deg) scale(1.15); }
+}
+
+.animate-phone-ring {
+  animation: phone-ring 1.5s ease-in-out infinite;
+}
+
+body[data-mobile-menu-open="true"] .whatsapp-cta-widget {
+  display: none !important;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 55s linear infinite;
+  width: max-content;
+}
+
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Premium Gradient Shade Button Utilities */
+.btn-shade-brand {
+  background: linear-gradient(135deg, #2E8B27 0%, #38A731 50%, #2E8B27 100%);
+  background-size: 200% auto;
+  box-shadow: 0 4px 14px 0 rgba(46, 139, 39, 0.35);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.btn-shade-brand:hover {
+  background-position: right center;
+  box-shadow: 0 8px 25px 0 rgba(46, 139, 39, 0.5);
+  transform: translateY(-2px) scale(1.02);
+}
+.btn-shade-brand:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px 0 rgba(46, 139, 39, 0.4);
+}
+
+.btn-shade-navy {
+  background: linear-gradient(135deg, #0B2D5C 0%, #14427E 50%, #0B2D5C 100%);
+  background-size: 200% auto;
+  box-shadow: 0 4px 14px 0 rgba(11, 45, 92, 0.35);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.btn-shade-navy:hover {
+  background-position: right center;
+  box-shadow: 0 8px 25px 0 rgba(11, 45, 92, 0.5);
+  transform: translateY(-2px) scale(1.02);
+}
+.btn-shade-navy:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px 0 rgba(11, 45, 92, 0.4);
+}
+
+.btn-shade-gold {
+  background: linear-gradient(135deg, #F2B705 0%, #FCD857 50%, #F2B705 100%);
+  background-size: 200% auto;
+  box-shadow: 0 4px 14px 0 rgba(242, 183, 5, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.btn-shade-gold:hover {
+  background-position: right center;
+  box-shadow: 0 8px 25px 0 rgba(242, 183, 5, 0.6);
+  transform: translateY(-2px) scale(1.02);
+}
+.btn-shade-gold:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px 0 rgba(242, 183, 5, 0.4);
+}
+
+.btn-shade-white {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F6 100%);
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.btn-shade-white:hover {
+  background: #FFFFFF;
+  box-shadow: 0 10px 28px 0 rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px) scale(1.02);
+}
+.btn-shade-white:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+
