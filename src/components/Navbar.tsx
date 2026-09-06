@@ -62,7 +62,9 @@ export function Navbar({
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ease-in-out ${
-          isScrolled
+          mobileMenuOpen
+            ? "bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 py-3 md:py-4"
+            : isScrolled
             ? "bg-white/85 dark:bg-background/85 backdrop-blur-xl border-b border-black/[0.04] dark:border-white/[0.08] shadow-xs py-2 md:py-2.5"
             : "bg-transparent py-4 md:py-5"
         }`}
@@ -75,7 +77,9 @@ export function Navbar({
                 src="/logo.png"
                 alt="Vishvas Green Energy"
                 className={`w-auto object-contain transition-all duration-300 ease-in-out group-hover:scale-[1.02] ${
-                  isScrolled ? "h-9 sm:h-10 md:h-12" : "h-13 sm:h-16 md:h-20"
+                  mobileMenuOpen || !isScrolled
+                    ? "h-13 sm:h-16 md:h-20"
+                    : "h-9 sm:h-10 md:h-12"
                 }`}
               />
             </Link>
@@ -135,12 +139,12 @@ export function Navbar({
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-xl md:hidden text-foreground hover:bg-slate-100 transition-colors"
+                className="inline-flex items-center justify-center p-2 rounded-xl md:hidden text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 aria-label="Toggle navigation menu"
                 aria-expanded={mobileMenuOpen}
               >
                 {mobileMenuOpen ? (
-                  <X className="h-6 w-6 text-brand" />
+                  <X className="h-7 w-7 text-brand stroke-[2.5]" />
                 ) : (
                   <Menu className="h-6 w-6" />
                 )}
@@ -148,113 +152,91 @@ export function Navbar({
             </div>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Full Screen Menu Overlay */}
-        {mobileMenuOpen && (
-          <div className="fixed inset-0 z-[200] bg-white flex flex-col justify-between p-6 sm:p-8 md:hidden animate-in fade-in duration-200">
-            {/* Top Header Bar inside Mobile Menu */}
-            <div className="flex items-center justify-between w-full pt-1 pb-4 border-b border-slate-100">
-              {/* Left: Brand Logo */}
-              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center">
-                <img
-                  src="/logo.png"
-                  alt="Vishvas Green Energy"
-                  className="h-13 sm:h-16 w-auto object-contain"
-                />
+      {/* Mobile Full Screen Menu Overlay (Rendered outside <header> so backdrop-blur does not contain it) */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[9900] bg-white dark:bg-slate-950 text-foreground flex flex-col justify-between pt-24 pb-8 px-6 sm:px-8 md:hidden animate-in fade-in duration-200 h-screen w-screen overflow-y-auto">
+          {/* Main Content Area (Centered Navigation & Sub-links) */}
+          <div className="flex-1 flex flex-col items-center justify-center py-6 my-auto">
+            {/* Primary Navigation Links (excluding Contact Us link) */}
+            <nav className="flex flex-col items-center gap-6 sm:gap-7 text-center">
+              {allNavItems
+                .filter((item) => item.to !== "/contact")
+                .map((item) => {
+                  const isActive = activePath === item.to;
+                  return (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-lg sm:text-xl font-extrabold uppercase tracking-[0.2em] transition-colors ${
+                        isActive
+                          ? "text-brand"
+                          : "text-slate-900 dark:text-slate-100 hover:text-brand"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+            </nav>
+
+            {/* Primary CTA Button with Icon-Only Vibrating Phone Button */}
+            <div className="mt-8 sm:mt-10 flex items-center justify-center gap-3 text-center w-full max-w-xs sm:max-w-sm">
+              <Link
+                to="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex-1 rounded-full btn-shade-brand py-3.5 text-center text-xs font-bold uppercase tracking-widest text-brand-foreground shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer"
+              >
+                Get Free Site Survey
               </Link>
 
-              {/* Right: Close Icon (X) */}
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-foreground hover:text-brand transition-colors rounded-full hover:bg-slate-100"
-                aria-label="Close menu"
-              >
-                <X className="h-7 w-7 stroke-[2]" />
-              </button>
-            </div>
-
-            {/* Main Content Area (Centered Navigation & Sub-links) */}
-            <div className="flex-1 flex flex-col items-center justify-center py-6 my-auto">
-              {/* Primary Navigation Links (excluding Contact Us link) */}
-              <nav className="flex flex-col items-center gap-6 sm:gap-7 text-center">
-                {allNavItems
-                  .filter((item) => item.to !== "/contact")
-                  .map((item) => {
-                    const isActive = activePath === item.to;
-                    return (
-                      <Link
-                        key={item.to}
-                        to={item.to}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`text-lg sm:text-xl font-extrabold uppercase tracking-[0.2em] transition-colors ${
-                          isActive
-                            ? "text-brand"
-                            : "text-slate-900 hover:text-brand"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    );
-                  })}
-              </nav>
-
-              {/* Primary CTA Button with Icon-Only Vibrating Phone Button */}
-              <div className="mt-8 sm:mt-10 flex items-center justify-center gap-3 text-center w-full max-w-xs sm:max-w-sm">
-                <Link
-                  to="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex-1 rounded-full btn-shade-brand py-3.5 text-center text-xs font-bold uppercase tracking-widest text-brand-foreground shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer"
-                >
-                  Get Free Site Survey
-                </Link>
-
-                {/* Icon-Only Vibrating Phone Call Button */}
-                <a
-                  href="tel:+91258789457"
-                  aria-label="Call Us: +91 258 789 457"
-                  title="Call +91 258 789 457"
-                  className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-navy text-white shadow-md transition-all duration-300 hover:scale-110 active:scale-95"
-                >
-                  <Phone className="h-5 w-5 text-amber-400 animate-phone-ring" />
-                </a>
-              </div>
-            </div>
-
-            {/* Bottom Social Media Icons */}
-            <div className="flex items-center justify-center gap-6 pt-4 pb-2 text-slate-700">
+              {/* Icon-Only Vibrating Phone Call Button */}
               <a
-                href="#"
-                aria-label="Facebook"
-                className="hover:text-brand transition-colors"
+                href="tel:+91258789457"
+                aria-label="Call Us: +91 258 789 457"
+                title="Call +91 258 789 457"
+                className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-navy text-white shadow-md transition-all duration-300 hover:scale-110 active:scale-95"
               >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                aria-label="Twitter"
-                className="hover:text-brand transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="hover:text-brand transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                aria-label="LinkedIn"
-                className="hover:text-brand transition-colors"
-              >
-                <Linkedin className="h-5 w-5" />
+                <Phone className="h-5 w-5 text-amber-400 animate-phone-ring" />
               </a>
             </div>
           </div>
-        )}
-      </header>
+
+          {/* Bottom Social Media Icons */}
+          <div className="flex items-center justify-center gap-6 pt-4 pb-2 text-slate-700 dark:text-slate-300">
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="hover:text-brand transition-colors"
+            >
+              <Facebook className="h-5 w-5" />
+            </a>
+            <a
+              href="#"
+              aria-label="Twitter"
+              className="hover:text-brand transition-colors"
+            >
+              <Twitter className="h-5 w-5" />
+            </a>
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="hover:text-brand transition-colors"
+            >
+              <Instagram className="h-5 w-5" />
+            </a>
+            <a
+              href="#"
+              aria-label="LinkedIn"
+              className="hover:text-brand transition-colors"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* Invisible spacer div so content flow starts below fixed header */}
       <div className="h-20 sm:h-24 md:h-28" aria-hidden="true" />
